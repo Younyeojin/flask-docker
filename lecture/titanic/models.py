@@ -13,7 +13,6 @@ rc('font', family = font_manager.FontProperties(fname='C:/Windows/Fonts/H2GTRE.t
 """
 Titanic's features
 PassengerId,Survived,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked
-
 ['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
    'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked']
 """
@@ -83,6 +82,11 @@ class Titanic(object):
         test = test.fillna({'Embarked': 'S'})
         train['Embarked'] = train['Embarked'].map({'S': 1, 'C': 2, 'Q': 3})
         test['Embarked'] = test['Embarked'].map({'S': 1, 'C': 2, 'Q': 3})
+        # print('%' * 100)
+        # print(f'\nThe Head of Train is {train["Embarked"].head(3)},\n'
+        #       f'The Head of Test is  {test["Embarked"].head(3)}')
+        vo.train = train
+        vo.test = test
         return vo
 
     def fare_ordinal(self, vo) -> object:
@@ -94,6 +98,8 @@ class Titanic(object):
         test['FareBand'] = pd.qcut(test['Fare'], 4, labels={1, 2, 3, 4})
         # qcut() 을 사용하면 자동으로 구간을 4등분한다.
         # 타이타닉에서는 bins = [-1, 8, 15, 31, np.inf] 로 구분된다.
+        vo.train = train
+        vo.test = test
         return vo
 
     def title_nominal(self, vo) -> object:
@@ -130,6 +136,8 @@ class Titanic(object):
         for i in train, test:
             i['AgeGroup'] = pd.cut(i['Age'], bins=bins, labels=labels)
             i['AgeGroup'] = i['AgeGroup'].map(age_mapping)
+        vo.train = train
+        vo.test = test
         return vo
 
 
@@ -145,7 +153,3 @@ class Titanic(object):
                                 n_jobs=1,
                                 scoring='accuracy')
         return round(np.mean(score) * 100, 2)
-
-
-
-
