@@ -8,50 +8,50 @@ from icecream import ic
 class MyPandas(object):
     def __init__(self):
         print('### PANDAS QUIZ ###')
-        print('Q1')
-        df1 = self.df1_dict()
+
+        df1 = pd.DataFrame({'a':[1,2], 'b':[3,4], 'c':[5,6]}, index=[1,2])
+        df1_1 = pd.DataFrame.from_dict({"1":[1,3,5],"2":[2,4,6]}, orient='index', columns=['a','b','c'])
+        ic('Q1')
         ic(df1)
-        print('Q2')
-        df2 = self.df2_dict()
-        ic(df2)
-        print('Q3')
-        df3 = self.random_dict()
-        ic(df3)
-        # print('Q4')
-        # df4 = self.score_random()
-        # ic(df4)
-        print('Q5')
-        df5 = self.loc_score()
-        ic(df5)
-        print('Q5-1')
-        df6 = self.test_5_1()
-        ic(df6)
+        ic(df1_1)
+        # df1 = self.df1_dict()
+        # ic(df1)
+        # def df1_dict(self):
+        #   return pd.DataFrame({'a':[1,2], 'b':[3,4], 'c':[5,6]}, index=[1,2])
+        #   return pd.DataFrame.from_dict({"1":[1,3,5],"2":[2,4,6]}, orient='index', columns=['a','b','c'])
 
-    def df1_dict(self):
-        return pd.DataFrame({'a':[1,2], 'b':[3,4], 'c':[5,6]}, index=[1,2])
-        # return pd.DataFrame.from_dict({"1":[1,3,5],"2":[2,4,6]}, orient='index', columns=['a','b','c'])
-
-    def df2_dict(self):
-        # return pd.DataFrame({'A': range(1,11,3), 'B': range(2,12,3), 'C':range(3,13,3)}, index=range(1,5))
-        return pd.DataFrame([[1,2,3],
+        df2 = pd.DataFrame({'A': range(1, 11, 3), 'B': range(2, 12, 3), 'C': range(3, 13, 3)},
+                           index=range(1, 5))
+        df2_1 = pd.DataFrame([[1,2,3],
                              [4,5,6],
                              [7,8,9],
                              [10,11,12]], index=range(1,5),columns=['A','B','C'])
+        ic('Q2')
+        ic(df2)
+        ic(df2_1)
 
-    def random_dict(self):
-        df3 = pd.DataFrame(np.random.randint(10,100, size=(2,3)))
-        return df3
+        df3 = pd.DataFrame(np.random.randint(10, 100, size=(2, 3)))
+        ic('Q3')
+        ic(df3)
 
-    def score_random(self):
+        score = [list(map(lambda x: np.random.randint(0, 101), [i for i in range(1, 5)])) for i in range(1, 11)]
+        students = ["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)]
+        ic(students)
+        subjects = ['국어', '영어', '수학', '사회']
+        df4 = pd.DataFrame(score, index=students, columns=subjects)
+        ic('Q4')
+        ic(df4)
+
         score = [list(map(lambda x: np.random.randint(0,101),[i for i in range(1,5)])) for i in range(1,11)]
         students = ["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)]
         ic(students)
         subjects = ['국어','영어','수학','사회']
         df4 = pd.DataFrame(score, index=students, columns=subjects)
         ic(df4)
-        # return pd.DataFrame(np.random.randint(0, 100, (10, 4)),
-        #                     index=["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)],
-        #                     columns=['국어','영어','수학','사회'])
+        # def score_random(self):
+        #   return pd.DataFrame(np.random.randint(0, 100, (10, 4)),
+        #   index=["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)],
+        #   columns=['국어','영어','수학','사회'])
         ''' 
         Q5 4번 문제를 loc 를 통해 동일하게 작성
         ic| df5:        국어  영어  수학  사회
@@ -66,8 +66,6 @@ class MyPandas(object):
                  lGmwZ  32  50  95   1
                  GQzmY  59  37  80  27
         '''
-    def loc_score(self):
-        return
         ''' 
         Q5-1 국어 점수만 출력
                              hVoGW    93
