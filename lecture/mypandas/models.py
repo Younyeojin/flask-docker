@@ -1,6 +1,7 @@
 import random
 import string
 
+import numpy as np
 import pandas as pd
 from icecream import ic
 
@@ -16,70 +17,41 @@ class MyPandas(object):
         print('Q3')
         df3 = self.random_dict()
         ic(df3)
-        print('Q4')
-        df4 = self.score_random()
-        ic(df4)
-        '''
-                Q1. 다음 결과 출력
-                   a  b  c
-                1  1  3  5
-                2  2  4  6
-                ic| df1:    a  b  c
-                         1  1  3  5
-                         2  2  4  6
-                '''
+        # print('Q4')
+        # df4 = self.score_random()
+        # ic(df4)
+        print('Q5')
+        df5 = self.loc_score()
+        ic(df5)
+        print('Q5-1')
+        df6 = self.test_5_1()
+        ic(df6)
+
     def df1_dict(self):
         return pd.DataFrame({'a':[1,2], 'b':[3,4], 'c':[5,6]}, index=[1,2])
         # return pd.DataFrame.from_dict({"1":[1,3,5],"2":[2,4,6]}, orient='index', columns=['a','b','c'])
-        '''         
-        Q2. 다음 결과 출력
-           A   B   C
-        1   1   2   3
-        2   4   5   6
-        3   7   8   9
-        4  10  11  12
-        ic| df2:     A   B   C
-                 1   1   2   3
-                 2   4   5   6
-                 3   7   8   9
-                 4  10  11  12
-        '''
+
     def df2_dict(self):
-        return pd.DataFrame({'A': [1,4,7,10], 'B': [2,5,8,11], 'C': [3,6,9,12]}, index=range(1,5))
-        ''' 
-        Q3 두자리 정수를 랜덤으로 2행 3열 데이터프레임을 생성
-        ic| df3:     0   1   2
-                 0  95  25  74
-                 1  44  24  97
-        '''
+        # return pd.DataFrame({'A': range(1,11,3), 'B': range(2,12,3), 'C':range(3,13,3)}, index=range(1,5))
+        return pd.DataFrame([[1,2,3],
+                             [4,5,6],
+                             [7,8,9],
+                             [10,11,12]], index=range(1,5),columns=['A','B','C'])
+
     def random_dict(self):
-        return pd.DataFrame({'0':random.randint(1,100),
-                             '1':random.randint(1,100),
-                             '2':random.randint(1,100)}, index=['0','1'])
-        ''' 
-        Q4 국어, 영어, 수학, 사회 4과목을 시험치른 10명의 학생들의 성적표 작성. 단 점수 0 ~ 100이고 학생은 랜덤 알파벳 5자리 ID 로 표기
-        ic| self.id(): 'HKKHc'
-        ic| self.score(): 22
-        ic| df4:        국어  영어  수학  사회
-               lDZid  57  90  55  24
-               Rnvtg  12  66  43  11
-               ljfJt  80  33  89  10
-               ZJaje  31  28  37  34
-               OnhcI  15  28  89  19
-               claDN  69  41  66  74
-               LYawb  65  16  13  20
-               QDBCw  44  32   8  29
-               PZOTP  94  78  79  96
-               GOJKU  62  17  75  49
+        df3 = pd.DataFrame(np.random.randint(10,100, size=(2,3)))
+        return df3
 
-        '''
     def score_random(self):
-
-        return pd.DataFrame({'국어':random.randint(0,100),
-                             '영어':random.randint(0,100),
-                             '수학':random.randint(0,100),
-                             '사회':random.randint(0,100)},
-                            index=[str(random.choice(string.ascii_letters)) for i in range(10)])
+        score = [list(map(lambda x: np.random.randint(0,101),[i for i in range(1,5)])) for i in range(1,11)]
+        students = ["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)]
+        ic(students)
+        subjects = ['국어','영어','수학','사회']
+        df4 = pd.DataFrame(score, index=students, columns=subjects)
+        ic(df4)
+        # return pd.DataFrame(np.random.randint(0, 100, (10, 4)),
+        #                     index=["".join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)],
+        #                     columns=['국어','영어','수학','사회'])
         ''' 
         Q5 4번 문제를 loc 를 통해 동일하게 작성
         ic| df5:        국어  영어  수학  사회
@@ -94,7 +66,8 @@ class MyPandas(object):
                  lGmwZ  32  50  95   1
                  GQzmY  59  37  80  27
         '''
-
+    def loc_score(self):
+        return
         ''' 
         Q5-1 국어 점수만 출력
                              hVoGW    93
@@ -109,7 +82,8 @@ class MyPandas(object):
                              jHChe    59
                              Name: 국어, dtype: int64
         '''
-
+    def test_5_1(self):
+        return
         ''' 
         Q5-2 TdQOI 점수만 출력
         ic| TdQOI	15	42	59	67
@@ -502,7 +476,10 @@ class MyPandas(object):
         Q14. 아래 결과로 출력되는 DF 객체 전환 코드작성
         ic| df14.to_dict(): {'A': {0: 1, 1: 2, 2: 3}, 'B': {0: 4, 1: 5, 2: 6}}
         '''
-
+    def id(self):
+        pass
+    def score(self):
+        pass
 
 if __name__ == '__main__':
     MyPandas()
