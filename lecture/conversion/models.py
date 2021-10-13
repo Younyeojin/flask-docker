@@ -48,6 +48,18 @@ class Conversion(object):
         lst = self.gugudan(self.create_tuple())
         ic(type(lst))
         ic(lst)
+        print("Q12. 키는 a, b, c 이고 값은[1,2,3],[4,5,6],[7,8,9] 인 딕셔너리 출력")
+        dt = self.abc_dict()
+        ic(type(dt))
+        ic(dt)
+        print("Q13. 12번 딕셔너리에서 키값을 인덱스로 갖는 데이터프레임 출력")
+        df = self.orient_index(dt)
+        ic(type(df))
+        ic(df)
+        print('Q14. 12번 딕셔너리에서 키값을 컬럼으로 갖는 데이터프레임 출력')
+        df = self.orient_column(dt)
+        ic(type(df))
+        ic(df)
 
 # Q1. 1부터 9까지 요소를 갖는 튜플 생성
     def create_tuple(self) -> ():
@@ -109,7 +121,19 @@ class Conversion(object):
 
 # Q11. 구구단 한 줄 출력 2*1=2, 2*2=4, ..., 9*9=81
     def gugudan(self, tpl) -> ():
-        return list(map(lambda y: list(map(lambda x: f'{y}*{x}={x*y}', tpl)), tpl))
+        return list(map(lambda y: list(map(lambda x: f'{y}X{x}={x*y}', tpl)), tpl))
+
+    def abc_dict(self):
+        return {'a': [1, 2, 3], 'b': [4, 5, 6], 'c': [7, 8, 9]}
+
+    def orient_index(self, dt):
+        # dt = {'a':[1,2,3], 'b':[4,5,6], 'c':[7,8,9]}
+        return pd.DataFrame() \
+            .from_dict(dt, orient='index')
+
+    def orient_column(self, dt):
+        # dt = {'a':[1,2,3], 'b':[4,5,6], 'c':[7,8,9]}
+        return pd.DataFrame().from_dict(dt)
 
 
 if __name__ == '__main__':

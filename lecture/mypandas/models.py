@@ -1,16 +1,36 @@
+import random
+import string
+
+import pandas as pd
+from icecream import ic
+
 class MyPandas(object):
     def __init__(self):
         print('### PANDAS QUIZ ###')
+        print('Q1')
+        df1 = self.df1_dict()
+        ic(df1)
+        print('Q2')
+        df2 = self.df2_dict()
+        ic(df2)
+        print('Q3')
+        df3 = self.random_dict()
+        ic(df3)
+        print('Q4')
+        df4 = self.score_random()
+        ic(df4)
         '''
-        Q1. 다음 결과 출력
-           a  b  c
-        1  1  3  5
-        2  2  4  6
-        ic| df1:    a  b  c
-                 1  1  3  5
-                 2  2  4  6
-        '''
-
+                Q1. 다음 결과 출력
+                   a  b  c
+                1  1  3  5
+                2  2  4  6
+                ic| df1:    a  b  c
+                         1  1  3  5
+                         2  2  4  6
+                '''
+    def df1_dict(self):
+        return pd.DataFrame({'a':[1,2], 'b':[3,4], 'c':[5,6]}, index=[1,2])
+        # return pd.DataFrame.from_dict({"1":[1,3,5],"2":[2,4,6]}, orient='index', columns=['a','b','c'])
         '''         
         Q2. 다음 결과 출력
            A   B   C
@@ -24,16 +44,19 @@ class MyPandas(object):
                  3   7   8   9
                  4  10  11  12
         '''
-
+    def df2_dict(self):
+        return pd.DataFrame({'A': [1,4,7,10], 'B': [2,5,8,11], 'C': [3,6,9,12]}, index=range(1,5))
         ''' 
         Q3 두자리 정수를 랜덤으로 2행 3열 데이터프레임을 생성
         ic| df3:     0   1   2
                  0  95  25  74
                  1  44  24  97
         '''
-
+    def random_dict(self):
+        return pd.DataFrame({'0':random.randint(1,100),
+                             '1':random.randint(1,100),
+                             '2':random.randint(1,100)}, index=['0','1'])
         ''' 
-
         Q4 국어, 영어, 수학, 사회 4과목을 시험치른 10명의 학생들의 성적표 작성. 단 점수 0 ~ 100이고 학생은 랜덤 알파벳 5자리 ID 로 표기
         ic| self.id(): 'HKKHc'
         ic| self.score(): 22
@@ -50,7 +73,13 @@ class MyPandas(object):
                GOJKU  62  17  75  49
 
         '''
+    def score_random(self):
 
+        return pd.DataFrame({'국어':random.randint(0,100),
+                             '영어':random.randint(0,100),
+                             '수학':random.randint(0,100),
+                             '사회':random.randint(0,100)},
+                            index=[str(random.choice(string.ascii_letters)) for i in range(10)])
         ''' 
         Q5 4번 문제를 loc 를 통해 동일하게 작성
         ic| df5:        국어  영어  수학  사회
@@ -430,6 +459,13 @@ class MyPandas(object):
 
         '''  
         Q11. 체의 각 행에 대해 세번째 NaN 값이 들어 있는 열을 찾으시오. 일련의 열 레이블을 반환해야 합니다.
+        nan = np.nan
+        data = [[0.04, nan, nan, 0.25, nan, 0.43, 0.71, 0.51, nan, nan],
+                [nan, nan, nan, 0.04, 0.76, nan, nan, 0.67, 0.76, 0.16],
+                [nan, nan, 0.5, nan, 0.31, 0.4, nan, nan, 0.24, 0.01],
+                [0.49, nan, nan, 0.62, 0.73, 0.26, 0.85, nan, nan, nan],
+                [nan, nan, 0.41, nan, 0.05, nan, 0.61, nan, 0.48, 0.68]]
+        columns = list('abcdefghij')
           ic| type(df11.isnull()): <class 'pandas.core.frame.DataFrame'>
           ic| df11: 0    e
                    1    c
@@ -439,8 +475,11 @@ class MyPandas(object):
                   dtype: object
         '''
 
+
         '''  
         Q12. grps 에서 a, b, c 별로 가장 큰 값
+            df12 = pd.DataFrame({'grps': list('aaabbcaabcccbbc'),
+                           'vals': [12, 345, 3, 1, 45, 14, 4, 52, 54, 23, 235, 21, 57, 3, 87]})
           ic| type(df12.groupby('grps')): <class 'pandas.core.groupby.generic.DataFrameGroupBy'>
           ic| type(df12.groupby('grps')['vals']): <class 'pandas.core.groupby.generic.SeriesGroupBy'>
           ic| df12: grps
@@ -450,14 +489,17 @@ class MyPandas(object):
                   Name: vals, dtype: int64
         '''
 
+
         '''  
-        Q13. DF 객체를 list 로 변환
+        Q13. 다음 DF13 객체를 list 로 변환
+        df13 = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})
         ic| type(ls): <class 'list'>
         ic| df13.values.tolist(): [[1, 4], [2, 5], [3, 6]]
         '''
 
+
         '''  
-        Q14. DF 객체를 dictionary 로 변환
+        Q14. 아래 결과로 출력되는 DF 객체 전환 코드작성
         ic| df14.to_dict(): {'A': {0: 1, 1: 2, 2: 3}, 'B': {0: 4, 1: 5, 2: 6}}
         '''
 
